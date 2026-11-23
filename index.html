@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Day in the Life of a Cat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>A Day in the Life of a Cat</h1>
+      <p class="subtitle">A cozy room shaped by real weather</p>
+    </header>
+
+    <!-- City selector -->
+    <div class="city-selector">
+      <input type="text" id="cityInput" placeholder="Enter a city...">
+      <button id="searchBtn">Check Weather</button>
+      <div class="preset-cities">
+        <button class="preset-btn" data-city="Toronto">Toronto</button>
+        <button class="preset-btn" data-city="Tokyo">Tokyo</button>
+        <button class="preset-btn" data-city="London">London</button>
+        <button class="preset-btn" data-city="New York">New York</button>
+      </div>
+    </div>
+
+    <!-- Main room -->
+    <main class="room-container" id="roomContainer">
+      <!-- Background weather effects -->
+      <div class="weather-bg" id="weatherBg">
+        <div class="window-view">
+          <canvas id="weatherCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- Room interior -->
+      <div class="room-interior">
+        <!-- Lamp -->
+        <div class="lamp" id="lamp">
+          <div class="lamp-shade"></div>
+          <div class="lamp-light"></div>
+        </div>
+
+        <!-- Bed -->
+        <div class="bed">
+          <div class="blanket" id="blanket"></div>
+          <div class="pillow"></div>
+        </div>
+
+        <!-- Plant -->
+        <div class="plant">
+          <div class="pot"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <!-- Cat -->
+        <div class="cat-container" id="catContainer">
+          <div class="cat" id="cat">
+            <div class="head">
+              <div class="ears"></div>
+              <div class="eyes"></div>
+              <div class="nose"></div>
+            </div>
+            <div class="body"></div>
+            <div class="tail" id="catTail"></div>
+          </div>
+          <div class="cat-bubble" id="catBubble"></div>
+        </div>
+
+        <!-- Rug -->
+        <div class="rug"></div>
+      </div>
+
+      <!-- Info panel -->
+      <div class="info-panel">
+        <div class="info-item">
+          <span class="info-label">City:</span>
+          <span class="info-value" id="cityName">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Temperature:</span>
+          <span class="info-value" id="temperature">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Condition:</span>
+          <span class="info-value" id="condition">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Time:</span>
+          <span class="info-value" id="timeOfDay">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Cat's Mood:</span>
+          <span class="info-value" id="catMood">-</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
