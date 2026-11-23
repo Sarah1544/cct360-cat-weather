@@ -396,6 +396,9 @@ body {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 2px solid #e8d5c4;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .data-driven-section h3 {
@@ -412,6 +415,7 @@ body {
   padding: 8px;
   background: rgba(232, 212, 180, 0.3);
   border-radius: 4px;
+  flex: 1;
 }
 
 .property-icon {
