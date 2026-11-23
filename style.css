@@ -145,17 +145,14 @@ body {
 }
 
 /* Bedroom background image */
-.bedroom-bg {
+.bedroom-img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/bedroom.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #2a2a4a;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* Lighting overlay for day/night and weather effects */
@@ -199,10 +196,10 @@ body {
 /* Weather window - positioned over the window in the artwork */
 .weather-window {
   position: absolute;
-  left: 37%;
-  top: 12%;
-  width: 52%;
-  height: 45%;
+  left: 47.1%;
+  top: 13.8%;
+  width: 44.4%;
+  height: 51.7%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
