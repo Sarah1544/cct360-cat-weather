@@ -23,7 +23,7 @@ const presetBtns = document.querySelectorAll(".preset-btn");
 const bedroomContainer = document.querySelector(".bedroom-container");
 const cat = document.getElementById("cat");
 const lamp = document.querySelector(".lamp");
-const plant = document.querySelector(".plant");
+const plantLeaves = document.querySelector(".plant-leaves");
 
 // Event listeners - CLASS-TAUGHT: addEventListener
 presetBtns.forEach(btn => {
@@ -237,7 +237,8 @@ animateCanvas();
 // Property 3: Cat behavior - CLASS-TAUGHT: classList, style manipulation
 function updateCatBehavior(condition, temp, windSpeed, isDay) {
   cat.classList.remove("sleeping", "alert", "happy");
-  plant.classList.remove("windy");
+  plantLeaves.classList.remove("windy");
+  bedroomContainer.classList.remove("cold");
 
   // Lamp on/off
   if (isDay) {
@@ -246,11 +247,9 @@ function updateCatBehavior(condition, temp, windSpeed, isDay) {
     lamp.classList.add("on");
   }
 
-  // Blanket if cold
+  // Cold indicator
   if (temp < 5) {
     bedroomContainer.classList.add("cold");
-  } else {
-    bedroomContainer.classList.remove("cold");
   }
 
   // Cat states based on weather
@@ -258,7 +257,7 @@ function updateCatBehavior(condition, temp, windSpeed, isDay) {
     cat.classList.add("sleeping");
   } else if (windSpeed > 20) {
     cat.classList.add("alert");
-    plant.classList.add("windy");
+    plantLeaves.classList.add("windy");
   } else if (condition === "sunny" && temp > 20) {
     cat.classList.add("happy");
   }

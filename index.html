@@ -34,40 +34,34 @@
     <!-- Main content -->
     <div class="main-content">
       <!-- Bedroom scene -->
-      <div class="bedroom-container" id="bedroomContainer">
-        <!-- Wall background -->
-        <div class="wall" id="wall"></div>
+      <div class="bedroom-container">
+        <!-- Room walls and floor -->
+        <div class="room-bg"></div>
 
-        <!-- Rug -->
-        <div class="rug" id="rug"></div>
-
-        <!-- Furniture -->
-        <div class="furniture wardrobe" id="wardrobe"></div>
-        <div class="furniture dresser" id="dresser"></div>
-        <div class="furniture nightstand" id="nightstand"></div>
-        <div class="furniture chair" id="chair"></div>
-        <div class="furniture plant" id="plant"></div>
-        <div class="furniture decorative" id="picture"></div>
+        <!-- Window with animated weather -->
+        <div class="window">
+          <canvas id="weatherCanvas"></canvas>
+        </div>
 
         <!-- Bed -->
-        <div class="bed-container">
-          <div class="bed" id="bed"></div>
+        <div class="bed">
+          <div class="bed-mattress"></div>
+          <div class="bed-pillow"></div>
+
           <!-- Cat on bed -->
           <div class="cat" id="cat">🐱</div>
         </div>
 
-        <!-- Window with weather -->
-        <div class="window">
-          <div class="window-frame">
-            <canvas id="weatherCanvas"></canvas>
-          </div>
-          <div class="curtain-left"></div>
-          <div class="curtain-right"></div>
+        <!-- Lamp -->
+        <div class="lamp">
+          <div class="lamp-bulb" id="lampBulb"></div>
+          <div class="lamp-base"></div>
         </div>
 
-        <!-- Lamp -->
-        <div class="lamp" id="lamp">
-          <div class="lamp-bulb" id="lampBulb"></div>
+        <!-- Plant decoration -->
+        <div class="plant">
+          <div class="plant-pot"></div>
+          <div class="plant-leaves"></div>
         </div>
       </div>
 
@@ -109,7 +103,7 @@
             <div class="property-icon">💡</div>
             <div class="property-text">
               <strong>Room Lighting</strong>
-              <p>Changes based on weather (e.g., dimmer when it's rainy or cloudy).</p>
+              <p>Dimmer when rainy or cloudy. Bright when sunny. Dark at night.</p>
             </div>
           </div>
 
@@ -117,7 +111,7 @@
             <div class="property-icon">☁️</div>
             <div class="property-text">
               <strong>Window Weather</strong>
-              <p>Shows the current real weather outside (e.g., rain, snow, sun, or clouds).</p>
+              <p>Shows live conditions: rain, snow, clouds, sun, moon, or stars.</p>
             </div>
           </div>
 
@@ -125,7 +119,7 @@
             <div class="property-icon">🐾</div>
             <div class="property-text">
               <strong>Cat Behavior</strong>
-              <p>The cat reacts to the weather (e.g., sleeps on rainy days, plays on sunny days).</p>
+              <p>Sleeps in rain. Alerts when windy. Shivers when cold. Happy when sunny.</p>
             </div>
           </div>
         </div>
