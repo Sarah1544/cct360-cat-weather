@@ -222,10 +222,12 @@ body {
   z-index: 15;
   border-radius: 8px;
   transition: background 0.3s ease;
+  background: rgba(255, 0, 0, 0.3);
+  border: 2px dashed red;
 }
 
 .mochi-click-area:hover {
-  background: rgba(255, 192, 203, 0.05);
+  background: rgba(255, 192, 203, 0.2);
 }
 
 /* Speech bubble for Mochie */
