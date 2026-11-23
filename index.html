@@ -10,43 +10,98 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <h1>A Day in the Life of a Cat</h1>
+      <div class="header-content">
+        <span class="cloud-left">☁️</span>
+        <span class="cat-emoji">🐱</span>
+        <h1>A Day in the Life of a Cat</h1>
+        <span class="paw-emoji">🐾</span>
+        <span class="cloud-right">☁️</span>
+      </div>
       <p class="subtitle">A cozy room shaped by real weather</p>
     </header>
 
-    <!-- City selector -->
-    <div class="city-selector">
-      <input type="text" id="cityInput" placeholder="Enter a city...">
-      <button id="searchBtn">Check Weather</button>
+    <!-- Controls -->
+    <div class="controls">
+      <div class="location-icon">📍</div>
+      <input type="text" id="cityInput" placeholder="Search for a city...">
       <div class="preset-cities">
         <button class="preset-btn" data-city="Toronto">Toronto</button>
         <button class="preset-btn" data-city="Tokyo">Tokyo</button>
         <button class="preset-btn" data-city="London">London</button>
-        <button class="preset-btn" data-city="New York">New York</button>
       </div>
     </div>
 
-    <!-- Main room -->
-    <main class="room-container" id="roomContainer">
-      <!-- Background weather effects -->
-      <div class="weather-bg" id="weatherBg">
-        <div class="window-view">
-          <canvas id="weatherCanvas"></canvas>
-        </div>
-      </div>
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Bedroom scene -->
+      <div class="bedroom-container">
+        <!-- Wall background -->
+        <div class="wall"></div>
 
-      <!-- Room interior -->
-      <div class="room-interior">
+        <!-- Shelves on left -->
+        <div class="shelves">
+          <div class="shelf-row">
+            <div class="shelf-book"></div>
+            <div class="shelf-book"></div>
+            <div class="shelf-book"></div>
+          </div>
+          <div class="shelf-row">
+            <div class="shelf-book"></div>
+            <div class="shelf-book"></div>
+          </div>
+        </div>
+
+        <!-- Picture frame -->
+        <div class="picture-frame"></div>
+
+        <!-- Window with weather -->
+        <div class="window">
+          <div class="window-pane window-pane-top-left"></div>
+          <div class="window-pane window-pane-top-right"></div>
+          <div class="window-pane window-pane-bottom-left"></div>
+          <div class="window-pane window-pane-bottom-right"></div>
+          <canvas id="weatherCanvas"></canvas>
+          <div class="weather-overlay" id="weatherOverlay"></div>
+        </div>
+
+        <!-- Curtains -->
+        <div class="curtain-left"></div>
+        <div class="curtain-right"></div>
+
         <!-- Lamp -->
-        <div class="lamp" id="lamp">
-          <div class="lamp-shade"></div>
-          <div class="lamp-light"></div>
+        <div class="lamp">
+          <div class="lamp-bulb" id="lampBulb"></div>
+          <div class="lamp-stand"></div>
+        </div>
+
+        <!-- Bedside table -->
+        <div class="bedside-table">
+          <div class="table-top"></div>
+          <div class="table-drawer"></div>
+          <div class="table-leg"></div>
+          <div class="table-leg"></div>
         </div>
 
         <!-- Bed -->
         <div class="bed">
-          <div class="blanket" id="blanket"></div>
+          <div class="bed-frame"></div>
+          <div class="mattress"></div>
           <div class="pillow"></div>
+          <div class="blanket" id="blanket"></div>
+
+          <!-- Cat on bed -->
+          <div class="cat" id="cat">
+            <div class="cat-head">
+              <div class="cat-ear cat-ear-left"></div>
+              <div class="cat-ear cat-ear-right"></div>
+              <div class="cat-eye cat-eye-left"></div>
+              <div class="cat-eye cat-eye-right"></div>
+              <div class="cat-nose"></div>
+            </div>
+            <div class="cat-body"></div>
+            <div class="cat-tail" id="catTail"></div>
+            <div class="zzz" id="zzz">z z z</div>
+          </div>
         </div>
 
         <!-- Plant -->
@@ -55,19 +110,8 @@
           <div class="leaves"></div>
         </div>
 
-        <!-- Cat -->
-        <div class="cat-container" id="catContainer">
-          <div class="cat" id="cat">
-            <div class="head">
-              <div class="ears"></div>
-              <div class="eyes"></div>
-              <div class="nose"></div>
-            </div>
-            <div class="body"></div>
-            <div class="tail" id="catTail"></div>
-          </div>
-          <div class="cat-bubble" id="catBubble"></div>
-        </div>
+        <!-- Floor -->
+        <div class="floor"></div>
 
         <!-- Rug -->
         <div class="rug"></div>
@@ -75,28 +119,64 @@
 
       <!-- Info panel -->
       <div class="info-panel">
-        <div class="info-item">
-          <span class="info-label">City:</span>
-          <span class="info-value" id="cityName">-</span>
+        <div class="info-header">
+          <span class="location-pin">📍</span>
+          <span class="city-name" id="cityName">Toronto</span>
         </div>
-        <div class="info-item">
-          <span class="info-label">Temperature:</span>
-          <span class="info-value" id="temperature">-</span>
+
+        <div class="live-weather">
+          <span class="live-indicator">● Live Weather</span>
         </div>
-        <div class="info-item">
-          <span class="info-label">Condition:</span>
-          <span class="info-value" id="condition">-</span>
+
+        <div class="temperature-display">
+          <div class="weather-icon" id="weatherIcon">☁️</div>
+          <div class="temp-info">
+            <span class="temperature" id="temperature">--</span>
+            <span class="condition" id="condition">--</span>
+          </div>
         </div>
+
         <div class="info-item">
-          <span class="info-label">Time:</span>
-          <span class="info-value" id="timeOfDay">-</span>
+          <span class="info-time-icon">🕐</span>
+          <span class="info-label">Time of Day</span>
+          <span class="info-value" id="timeOfDay">--</span>
         </div>
+
         <div class="info-item">
-          <span class="info-label">Cat's Mood:</span>
-          <span class="info-value" id="catMood">-</span>
+          <span class="info-emoji">🐱</span>
+          <span class="info-label">Cat's Mood</span>
+          <span class="mood-badge" id="catMood">--</span>
+        </div>
+
+        <div class="data-driven-section">
+          <h3>✨ How the Weather Shapes the Room ✨</h3>
+
+          <div class="data-property">
+            <div class="property-icon">💡</div>
+            <div class="property-text">
+              <strong>Room Lighting</strong>
+              <p>Changes based on weather (e.g., dimmer when it's rainy or cloudy).</p>
+            </div>
+          </div>
+
+          <div class="data-property">
+            <div class="property-icon">☁️</div>
+            <div class="property-text">
+              <strong>Window Weather</strong>
+              <p>Shows the current real weather outside (e.g., rain, snow, sun, or clouds).</p>
+            </div>
+          </div>
+
+          <div class="data-property">
+            <div class="property-icon">🐾</div>
+            <div class="property-text">
+              <strong>Cat Behavior</strong>
+              <p>The cat reacts to the weather (e.g., sleeps on rainy days, plays on sunny days).</p>
+            </div>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
   </div>
 
   <script src="script.js"></script>
