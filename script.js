@@ -141,15 +141,32 @@ function updateLighting(condition, isDay) {
 function drawWeatherScene(condition, isDay) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // During day, draw sun; at night, illustration already has moon/stars
+  if (isDay) {
+    ctx.fillStyle = condition === "rainy" ? "#7a8a9a" : "#87ceeb";
+  } else {
+    ctx.fillStyle = "#1a1a3e";
+  }
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   if (isDay) {
     ctx.fillStyle = "#ffdb58";
     ctx.beginPath();
-    ctx.arc(canvas.width - 30, 30, 18, 0, Math.PI * 2);
+    ctx.arc(canvas.width - 25, 25, 15, 0, Math.PI * 2);
     ctx.fill();
+  } else {
+    ctx.fillStyle = "#fffacd";
+    ctx.beginPath();
+    ctx.arc(canvas.width - 25, 25, 12, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "white";
+    for (let i = 0; i < 12; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * (canvas.height * 0.7);
+      ctx.fillRect(x, y, 1.5, 1.5);
+    }
   }
 
-  // Draw weather effects on top
   if (condition === "rainy") drawRain();
   else if (condition === "snowy") drawSnow();
   else if (condition === "cloudy") drawClouds();
@@ -161,10 +178,10 @@ function drawWeatherScene(condition, isDay) {
 
 function drawRain() {
   const time = Date.now() / 100 % 100;
-  ctx.strokeStyle = "rgba(150, 180, 220, 0.5)";
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgba(100, 150, 200, 0.7)";
+  ctx.lineWidth = 1.5;
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 15; i++) {
     const x = (i * 15 + time * 3) % canvas.width;
     const y = (time * 2) % canvas.height;
     ctx.beginPath();
@@ -176,23 +193,23 @@ function drawRain() {
 
 function drawSnow() {
   const time = Date.now() / 150 % 100;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     const x = (i * 12 + Math.sin(time + i) * 8) % canvas.width;
     const y = (time * 1.5 + i * 4) % canvas.height;
     ctx.beginPath();
-    ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
     ctx.fill();
   }
 }
 
 function drawClouds() {
-  ctx.fillStyle = "rgba(180, 180, 180, 0.3)";
+  ctx.fillStyle = "rgba(200, 200, 200, 0.5)";
   ctx.beginPath();
-  ctx.arc(canvas.width * 0.3, canvas.height * 0.3, 15, 0, Math.PI * 2);
-  ctx.arc(canvas.width * 0.5, canvas.height * 0.25, 18, 0, Math.PI * 2);
-  ctx.arc(canvas.width * 0.7, canvas.height * 0.35, 12, 0, Math.PI * 2);
+  ctx.arc(40, 35, 18, 0, Math.PI * 2);
+  ctx.arc(65, 30, 20, 0, Math.PI * 2);
+  ctx.arc(85, 40, 15, 0, Math.PI * 2);
   ctx.fill();
 }
 
