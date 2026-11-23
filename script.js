@@ -235,7 +235,10 @@ function getMochinMood(condition, temp, windSpeed, isDay) {
 }
 
 function mochieClick() {
-  if (!currentWeather) return;
+  if (!currentWeather) {
+    showMochinMessage("Meow!");
+    return;
+  }
 
   const isDay = currentWeather.is_day;
   const code = currentWeather.weather_code;
