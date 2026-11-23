@@ -216,7 +216,7 @@ body {
 }
 
 /* Mochie click area */
-.mochie-click-area {
+.mochi-click-area {
   position: absolute;
   left: 35%;
   bottom: 18%;
@@ -228,7 +228,7 @@ body {
   transition: background 0.3s ease;
 }
 
-.mochie-click-area:hover {
+.mochi-click-area:hover {
   background: rgba(255, 192, 203, 0.05);
 }
 

@@ -223,7 +223,7 @@ function animateCanvas() {
 }
 animateCanvas();
 
-// Property 3: Mochie mood and interactions
+// Property 3: Mochi mood and interactions
 function getMochinMood(condition, temp, windSpeed, isDay) {
   if (!isDay) return "😴 Dreaming...";
   if (condition === "rainy") return "😴 Cozy nap";
