@@ -262,7 +262,7 @@ function mochieClick() {
   }
   // Sunny
   else if (condition === "sunny") {
-    message = "You're blocking my sunbeam!";
+    message = "Excuse me! I'm sunbathing";
   }
   // Rainy
   else if (condition === "rainy") {
