@@ -199,10 +199,10 @@ body {
 /* Weather window - positioned over the window in the artwork */
 .weather-window {
   position: absolute;
-  left: 36%;
-  top: 11%;
-  width: 56%;
-  height: 50%;
+  left: 37%;
+  top: 12%;
+  width: 52%;
+  height: 45%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
