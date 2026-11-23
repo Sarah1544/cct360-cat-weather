@@ -34,87 +34,41 @@
     <!-- Main content -->
     <div class="main-content">
       <!-- Bedroom scene -->
-      <div class="bedroom-container">
+      <div class="bedroom-container" id="bedroomContainer">
         <!-- Wall background -->
-        <div class="wall"></div>
+        <div class="wall" id="wall"></div>
 
-        <!-- Shelves on left -->
-        <div class="shelves">
-          <div class="shelf-row">
-            <div class="shelf-book"></div>
-            <div class="shelf-book"></div>
-            <div class="shelf-book"></div>
-          </div>
-          <div class="shelf-row">
-            <div class="shelf-book"></div>
-            <div class="shelf-book"></div>
-          </div>
+        <!-- Rug -->
+        <div class="rug" id="rug"></div>
+
+        <!-- Furniture -->
+        <div class="furniture wardrobe" id="wardrobe"></div>
+        <div class="furniture dresser" id="dresser"></div>
+        <div class="furniture nightstand" id="nightstand"></div>
+        <div class="furniture chair" id="chair"></div>
+        <div class="furniture plant" id="plant"></div>
+        <div class="furniture decorative" id="picture"></div>
+
+        <!-- Bed -->
+        <div class="bed-container">
+          <div class="bed" id="bed"></div>
+          <!-- Cat on bed -->
+          <div class="cat" id="cat">🐱</div>
         </div>
-
-        <!-- Picture frame -->
-        <div class="picture-frame"></div>
 
         <!-- Window with weather -->
         <div class="window">
-          <div class="window-pane window-pane-top-left"></div>
-          <div class="window-pane window-pane-top-right"></div>
-          <div class="window-pane window-pane-bottom-left"></div>
-          <div class="window-pane window-pane-bottom-right"></div>
-          <canvas id="weatherCanvas"></canvas>
-          <div class="weather-overlay" id="weatherOverlay"></div>
+          <div class="window-frame">
+            <canvas id="weatherCanvas"></canvas>
+          </div>
+          <div class="curtain-left"></div>
+          <div class="curtain-right"></div>
         </div>
-
-        <!-- Curtains -->
-        <div class="curtain-left"></div>
-        <div class="curtain-right"></div>
 
         <!-- Lamp -->
-        <div class="lamp">
+        <div class="lamp" id="lamp">
           <div class="lamp-bulb" id="lampBulb"></div>
-          <div class="lamp-stand"></div>
         </div>
-
-        <!-- Bedside table -->
-        <div class="bedside-table">
-          <div class="table-top"></div>
-          <div class="table-drawer"></div>
-          <div class="table-leg"></div>
-          <div class="table-leg"></div>
-        </div>
-
-        <!-- Bed -->
-        <div class="bed">
-          <div class="bed-frame"></div>
-          <div class="mattress"></div>
-          <div class="pillow"></div>
-          <div class="blanket" id="blanket"></div>
-
-          <!-- Cat on bed -->
-          <div class="cat" id="cat">
-            <div class="cat-head">
-              <div class="cat-ear cat-ear-left"></div>
-              <div class="cat-ear cat-ear-right"></div>
-              <div class="cat-eye cat-eye-left"></div>
-              <div class="cat-eye cat-eye-right"></div>
-              <div class="cat-nose"></div>
-            </div>
-            <div class="cat-body"></div>
-            <div class="cat-tail" id="catTail"></div>
-            <div class="zzz" id="zzz">z z z</div>
-          </div>
-        </div>
-
-        <!-- Plant -->
-        <div class="plant">
-          <div class="pot"></div>
-          <div class="leaves"></div>
-        </div>
-
-        <!-- Floor -->
-        <div class="floor"></div>
-
-        <!-- Rug -->
-        <div class="rug"></div>
       </div>
 
       <!-- Info panel -->

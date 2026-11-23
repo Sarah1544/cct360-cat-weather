@@ -9,7 +9,7 @@ const canvas = document.getElementById("weatherCanvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  const container = document.querySelector(".window");
+  const container = document.querySelector(".window-frame");
   canvas.width = container.clientWidth;
   canvas.height = container.clientHeight;
 }
@@ -19,17 +19,12 @@ resizeCanvas();
 // DOM elements - CLASS-TAUGHT: getElementById, querySelector
 const cityInput = document.getElementById("cityInput");
 const presetBtns = document.querySelectorAll(".preset-btn");
-const bedroomContainer = document.getElementById("bedroom-container");
+const bedroomContainer = document.getElementById("bedroomContainer");
 const cat = document.getElementById("cat");
-const catTail = document.getElementById("catTail");
-const blanket = document.getElementById("blanket");
 const lamp = document.getElementById("lamp");
-const lamp_bulb = document.getElementById("lampBulb");
-const zzz = document.getElementById("zzz");
-const leaves = document.querySelector(".leaves");
-const curtainLeft = document.querySelector(".curtain-left");
-const curtainRight = document.querySelector(".curtain-right");
-const bedroomElement = document.querySelector(".bedroom-container");
+const wall = document.getElementById("wall");
+const plant = document.getElementById("plant");
+const bed = document.getElementById("bed");
 
 // Event listeners - CLASS-TAUGHT: addEventListener
 presetBtns.forEach(btn => {
@@ -134,16 +129,16 @@ function updateWeatherIcon(condition) {
 
 // Property 1: Room lighting - CLASS-TAUGHT: classList manipulation
 function updateRoomLighting(condition, isDay) {
-  bedroomElement.classList.remove("rainy", "snowy", "night", "sunny");
+  bedroomContainer.classList.remove("rainy", "snowy", "night", "sunny");
 
   if (!isDay) {
-    bedroomElement.classList.add("night");
+    bedroomContainer.classList.add("night");
   } else if (condition === "rainy" || condition === "thunderstorm") {
-    bedroomElement.classList.add("rainy");
+    bedroomContainer.classList.add("rainy");
   } else if (condition === "snowy") {
-    bedroomElement.classList.add("snowy");
+    bedroomContainer.classList.add("snowy");
   } else if (condition === "sunny") {
-    bedroomElement.classList.add("sunny");
+    bedroomContainer.classList.add("sunny");
   }
 }
 
@@ -242,9 +237,8 @@ animateCanvas();
 
 // Property 3: Cat behavior - CLASS-TAUGHT: classList, style manipulation
 function updateCatBehavior(condition, temp, windSpeed, isDay) {
-  cat.classList.remove("sleeping", "alert");
-  leaves.classList.remove("windy");
-  catTail.classList.remove("alert", "happy");
+  cat.classList.remove("sleeping", "alert", "happy");
+  plant.classList.remove("windy");
 
   // Lamp on/off
   if (isDay) {
@@ -255,9 +249,9 @@ function updateCatBehavior(condition, temp, windSpeed, isDay) {
 
   // Blanket if cold
   if (temp < 5) {
-    blanket.classList.add("visible");
+    bedroomContainer.classList.add("cold");
   } else {
-    blanket.classList.remove("visible");
+    bedroomContainer.classList.remove("cold");
   }
 
   // Cat states based on weather
@@ -265,10 +259,9 @@ function updateCatBehavior(condition, temp, windSpeed, isDay) {
     cat.classList.add("sleeping");
   } else if (windSpeed > 20) {
     cat.classList.add("alert");
-    catTail.classList.add("alert");
-    leaves.classList.add("windy");
+    plant.classList.add("windy");
   } else if (condition === "sunny" && temp > 20) {
-    catTail.classList.add("happy");
+    cat.classList.add("happy");
   }
 }
 
@@ -286,15 +279,11 @@ function catClick() {
   const messages = ["Meow! 😸", "Purr 🐱", "Pounce! 😺", "So cozy! ☕"];
   const msg = messages[Math.floor(Math.random() * messages.length)];
 
-  // Show bubble (using existing zzz element repurposed)
-  zzz.textContent = msg;
-  zzz.style.opacity = "1";
-  setTimeout(() => {
-    zzz.style.opacity = "0";
-  }, 2000);
+  // Show bubble using title attribute
+  cat.title = msg;
 
-  catTail.classList.add("happy");
-  setTimeout(() => catTail.classList.remove("happy"), 600);
+  cat.classList.add("happy");
+  setTimeout(() => cat.classList.remove("happy"), 600);
 }
 
 // Initialize
