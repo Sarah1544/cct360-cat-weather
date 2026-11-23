@@ -103,7 +103,15 @@ function updateRoom() {
   // Update info panel
   document.getElementById("cityName").textContent = currentCity;
   document.getElementById("temperature").textContent = `${Math.round(temp)}°C`;
-  document.getElementById("condition").textContent = condition.charAt(0).toUpperCase() + condition.slice(1);
+
+  // Format condition text for display
+  let conditionText = condition;
+  if (condition === "clear_night") {
+    conditionText = "Clear Night";
+  } else {
+    conditionText = condition.charAt(0).toUpperCase() + condition.slice(1);
+  }
+  document.getElementById("condition").textContent = conditionText;
   document.getElementById("timeOfDay").textContent = isDay ? "Day" : "Night";
   document.getElementById("catMood").textContent = mood;
   updateWeatherIcon(condition);
@@ -116,7 +124,9 @@ function updateRoom() {
 }
 
 function getWeatherCondition(code, isDay) {
-  if (code === 0 || code === 1) return "sunny";
+  if (code === 0 || code === 1) {
+    return isDay ? "sunny" : "clear_night";
+  }
   if (code === 2 || code === 3) return "cloudy";
   if (code >= 51 && code <= 67) return "rainy";
   if (code >= 71 && code <= 77) return "snowy";
@@ -125,7 +135,14 @@ function getWeatherCondition(code, isDay) {
 }
 
 function updateWeatherIcon(condition) {
-  const icons = { sunny: "☀️", cloudy: "☁️", rainy: "🌧️", snowy: "❄️", thunderstorm: "⛈️" };
+  const icons = {
+    sunny: "☀️",
+    clear_night: "🌙",
+    cloudy: "☁️",
+    rainy: "🌧️",
+    snowy: "❄️",
+    thunderstorm: "⛈️"
+  };
   document.getElementById("weatherIcon").textContent = icons[condition] || "☁️";
 }
 
@@ -144,6 +161,7 @@ function updateLighting(condition, isDay) {
       bedroomContainer.classList.add("daytime");
     }
   }
+  // Nighttime (including clear_night) uses default nighttime styling
 }
 
 // Property 2: Window weather
@@ -183,6 +201,7 @@ function drawWeatherScene(condition, isDay) {
     drawRain();
     drawClouds();
   }
+  // "sunny" and "clear_night" don't add extra effects - sky is already drawn
 }
 
 function drawRain() {
@@ -240,6 +259,7 @@ function getMochinMood(condition, temp, windSpeed, isDay) {
   if (windSpeed > 20) return "👀 Alert";
   if (temp > 25 && condition === "sunny") return "😸 Warm!";
   if (temp < 5) return "🥶 Cold";
+  if (condition === "clear_night") return "😴 Dreaming...";
   return "😺 Content";
 }
 
