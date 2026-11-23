@@ -37,7 +37,14 @@ cityInput.addEventListener("keypress", (e) => {
   }
 });
 
-mochieArea.addEventListener("click", mochieClick);
+if (mochieArea) {
+  mochieArea.addEventListener("click", () => {
+    console.log("[Click] Mochi clicked!");
+    mochieClick();
+  });
+} else {
+  console.error("[Error] mochieArea element not found!");
+}
 
 // Fetch weather
 function fetchWeather(city) {
@@ -236,6 +243,7 @@ function getMochinMood(condition, temp, windSpeed, isDay) {
 }
 
 function mochieClick() {
+  console.log("[mochieClick] Called, currentWeather:", currentWeather);
   if (!currentWeather) {
     showMochinMessage("Meow!");
     return;
@@ -285,6 +293,11 @@ function mochieClick() {
 }
 
 function showMochinMessage(text) {
+  console.log("[showMochinMessage] Text:", text, "Bubble element:", speechBubble);
+  if (!speechBubble) {
+    console.error("[Error] speechBubble element not found!");
+    return;
+  }
   speechBubble.textContent = text;
   speechBubble.style.opacity = "0";
   speechBubble.style.animation = "none";
