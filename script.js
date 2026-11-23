@@ -37,7 +37,22 @@ cityInput.addEventListener("keypress", (e) => {
   }
 });
 
+console.log("[Init] Looking for mochieArea...", mochieArea);
 if (mochieArea) {
+  const rect = mochieArea.getBoundingClientRect();
+  console.log("[Init] mochieArea found! Position:", {
+    left: mochieArea.style.left,
+    bottom: mochieArea.style.bottom,
+    width: mochieArea.style.width,
+    height: mochieArea.style.height,
+    computed: {
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+      visible: rect.width > 0 && rect.height > 0
+    }
+  });
   mochieArea.addEventListener("click", () => {
     console.log("[Click] Mochi clicked!");
     mochieClick();
