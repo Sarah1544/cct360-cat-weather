@@ -258,7 +258,7 @@ function mochieClick() {
 
   // Nighttime takes priority
   if (!isDay) {
-    message = "Shhh... I'm sleeping.";
+    message = "zzzz. meow, zzzz";
   }
   // Sunny
   else if (condition === "sunny") {
