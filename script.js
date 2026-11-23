@@ -22,7 +22,7 @@ const cityInput = document.getElementById("cityInput");
 const presetBtns = document.querySelectorAll(".preset-btn");
 const bedroomContainer = document.querySelector(".bedroom-container");
 const lightingOverlay = document.getElementById("lightingOverlay");
-const mochieArea = document.getElementById("mochieArea");
+const mochieButton = document.getElementById("mochieButton");
 const speechBubble = document.getElementById("speechBubble");
 
 // Event listeners
@@ -37,28 +37,14 @@ cityInput.addEventListener("keypress", (e) => {
   }
 });
 
-console.log("[Init] Looking for mochieArea...", mochieArea);
-if (mochieArea) {
-  const rect = mochieArea.getBoundingClientRect();
-  console.log("[Init] mochieArea found! Position:", {
-    left: mochieArea.style.left,
-    bottom: mochieArea.style.bottom,
-    width: mochieArea.style.width,
-    height: mochieArea.style.height,
-    computed: {
-      left: rect.left,
-      top: rect.top,
-      width: rect.width,
-      height: rect.height,
-      visible: rect.width > 0 && rect.height > 0
-    }
-  });
-  mochieArea.addEventListener("click", () => {
-    console.log("[Click] Mochi clicked!");
+// Mochi button click handler
+if (mochieButton) {
+  mochieButton.addEventListener("click", (e) => {
+    e.stopPropagation();
     mochieClick();
   });
 } else {
-  console.error("[Error] mochieArea element not found!");
+  console.error("[Error] mochieButton element not found!");
 }
 
 // Fetch weather
@@ -258,7 +244,6 @@ function getMochinMood(condition, temp, windSpeed, isDay) {
 }
 
 function mochieClick() {
-  console.log("[mochieClick] Called, currentWeather:", currentWeather);
   if (!currentWeather) {
     showMochinMessage("Meow!");
     return;
@@ -275,51 +260,53 @@ function mochieClick() {
   if (!isDay) {
     message = "Shhh... I'm sleeping.";
   }
-  // Thunderstorm has high priority
-  else if (condition === "thunderstorm") {
-    message = "That thunder was loud!";
-  }
-  // Rainy
-  else if (condition === "rainy") {
-    message = "Rainy days are for naps... zzz";
-  }
-  // Snowy
-  else if (condition === "snowy") {
-    message = "It's too cold to leave my blanket.";
-  }
-  // Windy
-  else if (windSpeed > 20) {
-    message = "What was that noise?!";
-  }
   // Sunny
   else if (condition === "sunny") {
     message = "You're blocking my sunbeam!";
+  }
+  // Rainy
+  else if (condition === "rainy") {
+    message = "Perfect weather for a nap...";
+  }
+  // Snowy
+  else if (condition === "snowy") {
+    message = "Where's my blanket?";
+  }
+  // Windy
+  else if (windSpeed > 20) {
+    message = "What's that noise?";
   }
   // Cloudy
   else if (condition === "cloudy") {
     message = "Five more minutes...";
   }
-  // Default
-  else {
-    message = "Meow!";
+  // Thunderstorm
+  else if (condition === "thunderstorm") {
+    message = "That thunder was loud!";
   }
 
   showMochinMessage(message);
 }
 
+let bubbleTimeout;
+
 function showMochinMessage(text) {
-  console.log("[showMochinMessage] Text:", text, "Bubble element:", speechBubble);
   if (!speechBubble) {
     console.error("[Error] speechBubble element not found!");
     return;
   }
-  speechBubble.textContent = text;
-  speechBubble.style.opacity = "0";
-  speechBubble.style.animation = "none";
 
-  setTimeout(() => {
-    speechBubble.style.animation = "fadeInOut 3s ease-in-out";
-  }, 10);
+  // Clear any existing timeout
+  if (bubbleTimeout) clearTimeout(bubbleTimeout);
+
+  // Set the text and show immediately
+  speechBubble.textContent = text;
+  speechBubble.style.opacity = "1";
+
+  // Hide after 3.5 seconds
+  bubbleTimeout = setTimeout(() => {
+    speechBubble.style.opacity = "0";
+  }, 3500);
 }
 
 // Initialize
