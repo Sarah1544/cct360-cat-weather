@@ -237,26 +237,44 @@ function getMochinMood(condition, temp, windSpeed, isDay) {
 function mochieClick() {
   if (!currentWeather) return;
 
-  const temp = currentWeather.temperature_2m;
   const isDay = currentWeather.is_day;
   const code = currentWeather.weather_code;
+  const windSpeed = currentWeather.wind_speed_10m;
   const condition = getWeatherCondition(code, isDay);
 
   let message = "Meow!";
+
+  // Nighttime takes priority
   if (!isDay) {
-    message = "zzz... good dreams...";
-  } else if (condition === "rainy") {
-    message = "Pitter-patter... so cozy!";
-  } else if (condition === "snowy") {
-    message = "Brrr! Nope, inside is better!";
-  } else if (condition === "sunny" && temp > 25) {
-    message = "Found the perfect sunny spot!";
-  } else if (temp < 5) {
-    message = "Way too cold out there!";
-  } else if (currentWeather.wind_speed_10m > 20) {
-    message = "What's all that noise?";
-  } else {
-    message = "Purrrr... everything's perfect!";
+    message = "Shhh... I'm sleeping.";
+  }
+  // Thunderstorm has high priority
+  else if (condition === "thunderstorm") {
+    message = "That thunder was loud!";
+  }
+  // Rainy
+  else if (condition === "rainy") {
+    message = "Rainy days are for naps... zzz";
+  }
+  // Snowy
+  else if (condition === "snowy") {
+    message = "It's too cold to leave my blanket.";
+  }
+  // Windy
+  else if (windSpeed > 20) {
+    message = "What was that noise?!";
+  }
+  // Sunny
+  else if (condition === "sunny") {
+    message = "You're blocking my sunbeam!";
+  }
+  // Cloudy
+  else if (condition === "cloudy") {
+    message = "Five more minutes...";
+  }
+  // Default
+  else {
+    message = "Meow!";
   }
 
   showMochinMessage(message);
