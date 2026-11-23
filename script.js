@@ -253,13 +253,13 @@ animateCanvas();
 
 // Property 3: Mochi mood and interactions
 function getMochinMood(condition, temp, windSpeed, isDay) {
-  if (!isDay) return "😴 zzz fish treats zzz";
+  if (!isDay) return "😴 Dreaming...";
   if (condition === "rainy") return "😴 Cozy nap";
   if (condition === "snowy") return "🥶 Chilly";
   if (windSpeed > 20) return "👀 Alert";
   if (temp > 25 && condition === "sunny") return "😸 Warm!";
   if (temp < 5) return "🥶 Cold";
-  if (condition === "clear_night") return "😴 zzz fish treats zzz";
+  if (condition === "clear_night") return "😴 Dreaming...";
   return "😺 Content";
 }
 
@@ -278,7 +278,7 @@ function mochieClick() {
 
   // Nighttime takes priority
   if (!isDay) {
-    message = "zzzz. meow, zzzz";
+    message = "zzz fish treats zzz";
   }
   // Sunny
   else if (condition === "sunny") {
