@@ -1,4 +1,4 @@
-/* CLASS-TAUGHT: HTML5, CSS layout, flexbox, transforms, animations, media queries */
+/* CLASS-TAUGHT: HTML5, CSS layout, flexbox, transforms, animations, media queries, background-image */
 
 * {
   margin: 0;
@@ -131,78 +131,81 @@ body {
   align-items: flex-start;
 }
 
-/* Bedroom container - clean cohesive room */
+/* Bedroom container with background image */
 .bedroom-container {
   flex: 1;
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  background: linear-gradient(to bottom, #d4b8a8 0%, #d4c8b8 70%, #c4b89a 100%);
   border: 3px solid #8b7355;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.8s ease;
+  background: #2a2a4a;
 }
 
-/* Room background layer */
-.room-bg {
+/* Bedroom background image */
+.bedroom-bg {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, #d4b8a8 0%, #d4c8b8 70%, #c4b89a 100%);
-  transition: all 0.8s ease;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/bedroom.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #2a2a4a;
 }
 
-/* Weather-based lighting */
-.bedroom-container.rainy {
-  background: linear-gradient(to bottom, #8a7a8a 0%, #9a9a8a 70%, #8a8a7a 100%);
-}
-
-.bedroom-container.rainy .room-bg {
-  background: linear-gradient(to bottom, #8a7a8a 0%, #9a9a8a 70%, #8a8a7a 100%);
-}
-
-.bedroom-container.snowy {
-  background: linear-gradient(to bottom, #d8dce8 0%, #e8e8f0 70%, #d8d8e0 100%);
-}
-
-.bedroom-container.snowy .room-bg {
-  background: linear-gradient(to bottom, #d8dce8 0%, #e8e8f0 70%, #d8d8e0 100%);
-}
-
-.bedroom-container.night {
-  background: linear-gradient(to bottom, #2a2a4a 0%, #3a3a5a 70%, #2a2a4a 100%);
-}
-
-.bedroom-container.night .room-bg {
-  background: linear-gradient(to bottom, #2a2a4a 0%, #3a3a5a 70%, #2a2a4a 100%);
-}
-
-.bedroom-container.sunny {
-  background: linear-gradient(to bottom, #e8d4b8 0%, #e8dcc8 70%, #d8d0aa 100%);
-  filter: brightness(1.1);
-}
-
-.bedroom-container.sunny .room-bg {
-  background: linear-gradient(to bottom, #e8d4b8 0%, #e8dcc8 70%, #d8d0aa 100%);
-}
-
-/* Window */
-.window {
+/* Lighting overlay for day/night and weather effects */
+.lighting-overlay {
   position: absolute;
-  left: 60%;
-  top: 50px;
-  width: 180px;
-  height: 110px;
-  border: 4px solid #6b5a4a;
-  border-radius: 4px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(80, 50, 120, 0.4);
+  transition: background 0.8s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Night lighting (default) */
+.bedroom-container .lighting-overlay {
+  background: rgba(50, 30, 80, 0.3);
+}
+
+/* Day lighting */
+.bedroom-container.daytime .lighting-overlay {
+  background: rgba(255, 220, 180, 0.15);
+}
+
+/* Sunny lighting */
+.bedroom-container.sunny .lighting-overlay {
+  background: rgba(255, 240, 200, 0.2);
+}
+
+/* Rainy lighting */
+.bedroom-container.rainy .lighting-overlay {
+  background: rgba(100, 120, 150, 0.25);
+}
+
+/* Snowy lighting */
+.bedroom-container.snowy .lighting-overlay {
+  background: rgba(200, 220, 240, 0.15);
+}
+
+/* Weather window - positioned over the window in the artwork */
+.weather-window {
+  position: absolute;
+  left: 42%;
+  top: 12%;
+  width: 38%;
+  height: 40%;
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
-  background: #e8f4f8;
+  pointer-events: none;
   z-index: 10;
 }
 
@@ -212,147 +215,58 @@ body {
   display: block;
 }
 
-/* Bed */
-.bed {
+/* Mochie click area */
+.mochie-click-area {
   position: absolute;
-  bottom: 50px;
-  left: 80px;
-  width: 140px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  z-index: 8;
-}
-
-.bed-mattress {
-  width: 100%;
-  height: 70px;
-  background: linear-gradient(135deg, #d4a5b4 0%, #c4959f 100%);
-  border: 2px solid #b4859f;
-  border-radius: 2px;
-}
-
-.bed-pillow {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  width: 80px;
-  height: 40px;
-  background: linear-gradient(135deg, #e8c4d4 0%, #d8b4c4 100%);
-  border-radius: 50% 50% 20% 20%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 7;
-}
-
-/* Cat on bed */
-.cat {
-  position: absolute;
-  left: 50px;
-  top: 20px;
-  font-size: 48px;
+  left: 35%;
+  bottom: 18%;
+  width: 25%;
+  height: 30%;
   cursor: pointer;
-  transition: all 0.6s ease;
-  z-index: 9;
-  user-select: none;
+  z-index: 15;
+  border-radius: 8px;
+  transition: background 0.3s ease;
 }
 
-.cat.sleeping {
-  transform: rotate(-25deg) scaleY(0.8);
-  opacity: 0.9;
-  font-size: 40px;
+.mochie-click-area:hover {
+  background: rgba(255, 192, 203, 0.05);
 }
 
-.cat.alert {
-  animation: perk 0.4s ease;
-}
-
-@keyframes perk {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.cat.happy {
-  animation: tailWag 0.6s ease-in-out;
-}
-
-@keyframes tailWag {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(8deg); }
-}
-
-/* Lamp */
-.lamp {
+/* Speech bubble for Mochie */
+.speech-bubble {
   position: absolute;
-  right: 80px;
-  top: 60px;
-  width: 40px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 6;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 55%;
+  background: white;
+  border: 2px solid #8b7355;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #5a4a3a;
+  font-weight: bold;
+  max-width: 140px;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  animation: none;
 }
 
-.lamp-bulb {
-  width: 18px;
-  height: 18px;
-  background: #f4d4a8;
-  border-radius: 50%;
-  box-shadow: 0 0 0px rgba(244, 212, 168, 0);
-  transition: box-shadow 0.6s ease;
-}
-
-.lamp.on .lamp-bulb {
-  box-shadow: 0 0 25px rgba(244, 212, 168, 0.8);
-}
-
-.lamp-base {
-  width: 4px;
-  height: 40px;
-  background: #8b7355;
-}
-
-/* Plant decoration */
-.plant {
+.speech-bubble::after {
+  content: '';
   position: absolute;
-  left: 30px;
-  bottom: 50px;
-  width: 50px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  z-index: 5;
-}
-
-.plant-pot {
-  width: 40px;
-  height: 30px;
-  background: linear-gradient(135deg, #a67c52 0%, #9d7349 100%);
-  border-radius: 0 0 4px 4px;
-  border: 2px solid #8b6a3a;
-}
-
-.plant-leaves {
-  width: 50px;
-  height: 50px;
-  background: radial-gradient(ellipse at 50% 50%, #9b9b7a 0%, #b5b5a0 100%);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 25px;
-  transition: transform 0.6s ease;
-}
-
-.plant-leaves.windy {
-  animation: sway 2s ease-in-out infinite;
-}
-
-@keyframes sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid white;
 }
 
 /* Info panel */
@@ -557,8 +471,18 @@ body {
     min-width: 100%;
   }
 
-  .cat {
-    font-size: 36px;
+  .info-panel {
+    padding: 12px;
+  }
+
+  .info-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .data-driven-section {
+    grid-column: 1 / -1;
   }
 }
 

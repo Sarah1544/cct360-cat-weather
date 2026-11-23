@@ -4,12 +4,12 @@
 let currentWeather = null;
 let currentCity = "Toronto";
 
-// Canvas setup - CLASS-TAUGHT: canvas for drawing
+// Canvas setup
 const canvas = document.getElementById("weatherCanvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  const container = document.querySelector(".window");
+  const container = document.querySelector(".weather-window");
   if (!container) return;
   canvas.width = container.clientWidth;
   canvas.height = container.clientHeight;
@@ -17,19 +17,17 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-// DOM elements - CLASS-TAUGHT: getElementById, querySelector
+// DOM elements
 const cityInput = document.getElementById("cityInput");
 const presetBtns = document.querySelectorAll(".preset-btn");
 const bedroomContainer = document.querySelector(".bedroom-container");
-const cat = document.getElementById("cat");
-const lamp = document.querySelector(".lamp");
-const plantLeaves = document.querySelector(".plant-leaves");
+const lightingOverlay = document.getElementById("lightingOverlay");
+const mochieArea = document.getElementById("mochieArea");
+const speechBubble = document.getElementById("speechBubble");
 
-// Event listeners - CLASS-TAUGHT: addEventListener
+// Event listeners
 presetBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    fetchWeather(btn.dataset.city);
-  });
+  btn.addEventListener("click", () => fetchWeather(btn.dataset.city));
 });
 
 cityInput.addEventListener("keypress", (e) => {
@@ -39,9 +37,9 @@ cityInput.addEventListener("keypress", (e) => {
   }
 });
 
-cat.addEventListener("click", catClick);
+mochieArea.addEventListener("click", mochieClick);
 
-// Fetch weather - CLASS-TAUGHT: fetch API, JSON parsing
+// Fetch weather
 function fetchWeather(city) {
   const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
 
@@ -51,9 +49,14 @@ function fetchWeather(city) {
       if (data.results && data.results.length > 0) {
         const location = data.results[0];
         getWeatherData(location.latitude, location.longitude, city);
+      } else {
+        showMochinMessage(`Can't find ${city}...`);
       }
     })
-    .catch(err => console.error("Error:", err));
+    .catch(err => {
+      console.error("Error:", err);
+      showMochinMessage("Connection trouble!");
+    });
 }
 
 function getWeatherData(lat, lon, city) {
@@ -76,7 +79,7 @@ function updateActiveButton(city) {
   if (activeBtn) activeBtn.classList.add("active");
 }
 
-// Update room based on weather - Three data-driven properties
+// Update room with weather data
 function updateRoom() {
   if (!currentWeather) return;
 
@@ -86,7 +89,7 @@ function updateRoom() {
   const windSpeed = currentWeather.wind_speed_10m;
 
   const condition = getWeatherCondition(code, isDay);
-  const mood = getCatMood(condition, temp, windSpeed);
+  const mood = getMochinMood(condition, temp, windSpeed, isDay);
 
   // Update info panel
   document.getElementById("cityName").textContent = currentCity;
@@ -96,14 +99,11 @@ function updateRoom() {
   document.getElementById("catMood").textContent = mood;
   updateWeatherIcon(condition);
 
-  // Property 1: Room lighting based on weather
-  updateRoomLighting(condition, isDay);
+  // Data-driven Property 1: Lighting overlay
+  updateLighting(condition, isDay);
 
-  // Property 2: Window weather visualization
+  // Data-driven Property 2: Window weather
   drawWeatherScene(condition, isDay);
-
-  // Property 3: Cat behavior based on weather
-  updateCatBehavior(condition, temp, windSpeed, isDay);
 }
 
 function getWeatherCondition(code, isDay) {
@@ -116,36 +116,31 @@ function getWeatherCondition(code, isDay) {
 }
 
 function updateWeatherIcon(condition) {
-  const icons = {
-    sunny: "☀️",
-    cloudy: "☁️",
-    rainy: "🌧️",
-    snowy: "❄️",
-    thunderstorm: "⛈️"
-  };
+  const icons = { sunny: "☀️", cloudy: "☁️", rainy: "🌧️", snowy: "❄️", thunderstorm: "⛈️" };
   document.getElementById("weatherIcon").textContent = icons[condition] || "☁️";
 }
 
-// Property 1: Room lighting - CLASS-TAUGHT: classList manipulation
-function updateRoomLighting(condition, isDay) {
-  bedroomContainer.classList.remove("rainy", "snowy", "night", "sunny");
+// Property 1: Lighting overlay
+function updateLighting(condition, isDay) {
+  bedroomContainer.classList.remove("daytime", "sunny", "rainy", "snowy");
 
-  if (!isDay) {
-    bedroomContainer.classList.add("night");
-  } else if (condition === "rainy" || condition === "thunderstorm") {
-    bedroomContainer.classList.add("rainy");
-  } else if (condition === "snowy") {
-    bedroomContainer.classList.add("snowy");
-  } else if (condition === "sunny") {
-    bedroomContainer.classList.add("sunny");
+  if (isDay) {
+    if (condition === "sunny") {
+      bedroomContainer.classList.add("sunny");
+    } else if (condition === "rainy" || condition === "thunderstorm") {
+      bedroomContainer.classList.add("rainy");
+    } else if (condition === "snowy") {
+      bedroomContainer.classList.add("snowy");
+    } else {
+      bedroomContainer.classList.add("daytime");
+    }
   }
 }
 
-// Property 2: Draw weather in window - CLASS-TAUGHT: canvas drawing
+// Property 2: Window weather
 function drawWeatherScene(condition, isDay) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Sky
   if (isDay) {
     ctx.fillStyle = condition === "rainy" ? "#7a8a9a" : "#87ceeb";
   } else {
@@ -153,7 +148,6 @@ function drawWeatherScene(condition, isDay) {
   }
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Sun or moon
   if (isDay) {
     ctx.fillStyle = "#ffdb58";
     ctx.beginPath();
@@ -165,7 +159,6 @@ function drawWeatherScene(condition, isDay) {
     ctx.arc(canvas.width - 25, 25, 12, 0, Math.PI * 2);
     ctx.fill();
 
-    // Stars
     ctx.fillStyle = "white";
     for (let i = 0; i < 12; i++) {
       const x = Math.random() * canvas.width;
@@ -174,14 +167,10 @@ function drawWeatherScene(condition, isDay) {
     }
   }
 
-  // Weather-specific visuals
-  if (condition === "rainy") {
-    drawRain();
-  } else if (condition === "snowy") {
-    drawSnow();
-  } else if (condition === "cloudy") {
-    drawClouds();
-  } else if (condition === "thunderstorm") {
+  if (condition === "rainy") drawRain();
+  else if (condition === "snowy") drawSnow();
+  else if (condition === "cloudy") drawClouds();
+  else if (condition === "thunderstorm") {
     drawRain();
     drawClouds();
   }
@@ -234,80 +223,53 @@ function animateCanvas() {
 }
 animateCanvas();
 
-// Property 3: Cat behavior - CLASS-TAUGHT: classList, style manipulation
-function updateCatBehavior(condition, temp, windSpeed, isDay) {
-  cat.classList.remove("sleeping", "alert", "happy");
-  plantLeaves.classList.remove("windy");
-  bedroomContainer.classList.remove("cold");
-
-  // Lamp on/off
-  if (isDay) {
-    lamp.classList.remove("on");
-  } else {
-    lamp.classList.add("on");
-  }
-
-  // Cold indicator
-  if (temp < 5) {
-    bedroomContainer.classList.add("cold");
-  }
-
-  // Cat states based on weather
-  if (condition === "rainy" || temp < 0) {
-    cat.classList.add("sleeping");
-  } else if (windSpeed > 20) {
-    cat.classList.add("alert");
-    plantLeaves.classList.add("windy");
-  } else if (condition === "sunny" && temp > 20) {
-    cat.classList.add("happy");
-  }
-}
-
-function getCatMood(condition, temp, windSpeed) {
-  if (condition === "rainy") return "😴 Sleepy";
+// Property 3: Mochie mood and interactions
+function getMochinMood(condition, temp, windSpeed, isDay) {
+  if (!isDay) return "😴 Dreaming...";
+  if (condition === "rainy") return "😴 Cozy nap";
   if (condition === "snowy") return "🥶 Chilly";
-  if (windSpeed > 20) return "😺 Alert";
-  if (temp > 25 && condition === "sunny") return "😸 Happy & Warm";
+  if (windSpeed > 20) return "👀 Alert";
+  if (temp > 25 && condition === "sunny") return "😸 Warm!";
   if (temp < 5) return "🥶 Cold";
   return "😺 Content";
 }
 
-// Cat click
-function catClick() {
-  const messages = ["Meow! 😸", "Purr 🐱", "Pounce! 😺", "So cozy! ☕"];
-  const msg = messages[Math.floor(Math.random() * messages.length)];
+function mochieClick() {
+  if (!currentWeather) return;
 
-  // Show visible speech bubble
-  let bubble = document.getElementById("catBubble");
-  if (!bubble) {
-    bubble = document.createElement("div");
-    bubble.id = "catBubble";
-    bubble.style.cssText = `
-      position: absolute;
-      bottom: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      border: 2px solid #8b7355;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 11px;
-      color: #5a4a3a;
-      font-weight: bold;
-      max-width: 100px;
-      text-align: center;
-      white-space: normal;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      z-index: 20;
-    `;
-    cat.parentElement.appendChild(bubble);
+  const temp = currentWeather.temperature_2m;
+  const isDay = currentWeather.is_day;
+  const code = currentWeather.weather_code;
+  const condition = getWeatherCondition(code, isDay);
+
+  let message = "Meow!";
+  if (!isDay) {
+    message = "zzz... good dreams...";
+  } else if (condition === "rainy") {
+    message = "Pitter-patter... so cozy!";
+  } else if (condition === "snowy") {
+    message = "Brrr! Nope, inside is better!";
+  } else if (condition === "sunny" && temp > 25) {
+    message = "Found the perfect sunny spot!";
+  } else if (temp < 5) {
+    message = "Way too cold out there!";
+  } else if (currentWeather.wind_speed_10m > 20) {
+    message = "What's all that noise?";
+  } else {
+    message = "Purrrr... everything's perfect!";
   }
-  bubble.textContent = msg;
-  bubble.style.opacity = "1";
-  bubble.style.animation = "fadeInOut 3s ease-in-out";
 
-  cat.classList.add("happy");
-  setTimeout(() => cat.classList.remove("happy"), 600);
+  showMochinMessage(message);
+}
+
+function showMochinMessage(text) {
+  speechBubble.textContent = text;
+  speechBubble.style.opacity = "0";
+  speechBubble.style.animation = "none";
+
+  setTimeout(() => {
+    speechBubble.style.animation = "fadeInOut 3s ease-in-out";
+  }, 10);
 }
 
 // Initialize

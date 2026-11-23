@@ -35,34 +35,22 @@
     <div class="main-content">
       <!-- Bedroom scene -->
       <div class="bedroom-container">
-        <!-- Room walls and floor -->
-        <div class="room-bg"></div>
+        <!-- Bedroom background image -->
+        <div class="bedroom-bg"></div>
 
-        <!-- Window with animated weather -->
-        <div class="window">
+        <!-- Lighting overlay for day/night and weather effects -->
+        <div class="lighting-overlay" id="lightingOverlay"></div>
+
+        <!-- Weather window canvas (positioned over the window in the artwork) -->
+        <div class="weather-window">
           <canvas id="weatherCanvas"></canvas>
         </div>
 
-        <!-- Bed -->
-        <div class="bed">
-          <div class="bed-mattress"></div>
-          <div class="bed-pillow"></div>
+        <!-- Clickable area over Mochie for interactions -->
+        <div class="mochie-click-area" id="mochieArea"></div>
 
-          <!-- Cat on bed -->
-          <div class="cat" id="cat">🐱</div>
-        </div>
-
-        <!-- Lamp -->
-        <div class="lamp">
-          <div class="lamp-bulb" id="lampBulb"></div>
-          <div class="lamp-base"></div>
-        </div>
-
-        <!-- Plant decoration -->
-        <div class="plant">
-          <div class="plant-pot"></div>
-          <div class="plant-leaves"></div>
-        </div>
+        <!-- Speech bubble for Mochie reactions -->
+        <div class="speech-bubble" id="speechBubble"></div>
       </div>
 
       <!-- Info panel -->
@@ -92,7 +80,7 @@
 
         <div class="info-item">
           <span class="info-emoji">🐱</span>
-          <span class="info-label">Cat's Mood</span>
+          <span class="info-label">Mochie's Mood</span>
           <span class="mood-badge" id="catMood">--</span>
         </div>
 
@@ -103,23 +91,23 @@
             <div class="property-icon">💡</div>
             <div class="property-text">
               <strong>Room Lighting</strong>
-              <p>Dimmer when rainy or cloudy. Bright when sunny. Dark at night.</p>
+              <p>Lighting shifts with time of day and weather conditions.</p>
             </div>
           </div>
 
           <div class="data-property">
-            <div class="property-icon">☁️</div>
+            <div class="property-icon">🪟</div>
             <div class="property-text">
               <strong>Window Weather</strong>
-              <p>Shows live conditions: rain, snow, clouds, sun, moon, or stars.</p>
+              <p>See real weather outside: rain, snow, clouds, sun, moon, stars.</p>
             </div>
           </div>
 
           <div class="data-property">
             <div class="property-icon">🐾</div>
             <div class="property-text">
-              <strong>Cat Behavior</strong>
-              <p>Sleeps in rain. Alerts when windy. Shivers when cold. Happy when sunny.</p>
+              <strong>Mochie's Reactions</strong>
+              <p>Click Mochie to hear what she thinks about the weather!</p>
             </div>
           </div>
         </div>
