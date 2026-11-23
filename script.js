@@ -9,7 +9,8 @@ const canvas = document.getElementById("weatherCanvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  const container = document.querySelector(".window-frame");
+  const container = document.querySelector(".window");
+  if (!container) return;
   canvas.width = container.clientWidth;
   canvas.height = container.clientHeight;
 }
@@ -19,12 +20,10 @@ resizeCanvas();
 // DOM elements - CLASS-TAUGHT: getElementById, querySelector
 const cityInput = document.getElementById("cityInput");
 const presetBtns = document.querySelectorAll(".preset-btn");
-const bedroomContainer = document.getElementById("bedroomContainer");
+const bedroomContainer = document.querySelector(".bedroom-container");
 const cat = document.getElementById("cat");
-const lamp = document.getElementById("lamp");
-const wall = document.getElementById("wall");
-const plant = document.getElementById("plant");
-const bed = document.getElementById("bed");
+const lamp = document.querySelector(".lamp");
+const plant = document.querySelector(".plant");
 
 // Event listeners - CLASS-TAUGHT: addEventListener
 presetBtns.forEach(btn => {
@@ -279,8 +278,34 @@ function catClick() {
   const messages = ["Meow! 😸", "Purr 🐱", "Pounce! 😺", "So cozy! ☕"];
   const msg = messages[Math.floor(Math.random() * messages.length)];
 
-  // Show bubble using title attribute
-  cat.title = msg;
+  // Show visible speech bubble
+  let bubble = document.getElementById("catBubble");
+  if (!bubble) {
+    bubble = document.createElement("div");
+    bubble.id = "catBubble";
+    bubble.style.cssText = `
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 2px solid #8b7355;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: #5a4a3a;
+      font-weight: bold;
+      max-width: 100px;
+      text-align: center;
+      white-space: normal;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+    `;
+    cat.parentElement.appendChild(bubble);
+  }
+  bubble.textContent = msg;
+  bubble.style.opacity = "1";
+  bubble.style.animation = "fadeInOut 3s ease-in-out";
 
   cat.classList.add("happy");
   setTimeout(() => cat.classList.remove("happy"), 600);
