@@ -141,8 +141,15 @@ function updateLighting(condition, isDay) {
 function drawWeatherScene(condition, isDay) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Only draw weather effects (rain, snow, clouds) - don't fill background
-  // The illustration already has sky, moon, stars, and city skyline
+  // During day, draw sun; at night, illustration already has moon/stars
+  if (isDay) {
+    ctx.fillStyle = "#ffdb58";
+    ctx.beginPath();
+    ctx.arc(canvas.width - 30, 30, 18, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Draw weather effects on top
   if (condition === "rainy") drawRain();
   else if (condition === "snowy") drawSnow();
   else if (condition === "cloudy") drawClouds();
