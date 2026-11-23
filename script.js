@@ -67,6 +67,7 @@ function getWeatherData(lat, lon, city) {
     .then(data => {
       currentCity = city;
       currentWeather = data.current;
+      console.log(`[Weather] ${city}: is_day=${data.current.is_day}, code=${data.current.weather_code}, temp=${data.current.temperature_2m}°C`);
       updateRoom();
       updateActiveButton(city);
     })
